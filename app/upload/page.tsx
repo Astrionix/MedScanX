@@ -157,6 +157,7 @@ export default function UploadPage() {
                                         Preview
                                     </label>
                                     <div className="relative w-full h-96 bg-gray-100 rounded-lg overflow-hidden">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
                                             src={preview}
                                             alt="Scan preview"

@@ -134,6 +134,7 @@ export default function DashboardPage() {
                                         <div className="space-y-4">
                                             {/* Scan Image */}
                                             <div className="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
+                                                {/* eslint-disable-next-line @next/next/no-img-element */}
                                                 <img
                                                     src={scan.scan_url}
                                                     alt={scan.scan_name}
