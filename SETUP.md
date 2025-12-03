@@ -5,12 +5,7 @@
 Create a `.env.local` file in the root directory with the following content:
 
 ```env
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=https://ojghwswuwgjhvbifdlyu.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qZ2h3c3d1d2dqaHZiaWZkbHl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2OTYzMjksImV4cCI6MjA4MDI3MjMyOX0.ZfhitiUtRo8bAuIU_VAk5kZbuvK6uIzBmlFmUA5SqzI
 
-# Gemini AI Configuration
-GEMINI_API_KEY=AIzaSyCbGcqBzlZAMvmXAzjZ9lzEAKeqJPgPuQk
 ```
 
 ## Next Steps
