@@ -69,11 +69,7 @@ Run the SQL schema in your Supabase project:
 4. **Check scan history** in the dashboard
 
 ### 3. Environment Variables (Already Configured)
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://sjgrjzvpgfkopkymotp.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGc...
-GEMINI_API_KEY=AIzaSyCbGcqBzlZAMvmXAzjZ9lzEAKeqJPgPuQk
-```
+
 
 ## 📁 Project Structure
 ```
