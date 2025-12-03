@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
@@ -19,14 +19,7 @@ export default function ScanDetailPage({ params }: { params: { id: string } }) {
     const [error, setError] = useState('')
     const [scanId, setScanId] = useState<string>('')
 
-    useEffect(() => {
-        if (params?.id) {
-            setScanId(params.id)
-            fetchScan(params.id)
-        }
-    }, [params])
-
-    const fetchScan = async (id: string) => {
+    const fetchScan = useCallback(async (id: string) => {
         try {
             const response = await fetch(`/api/scans/${id}`)
 
@@ -47,7 +40,14 @@ export default function ScanDetailPage({ params }: { params: { id: string } }) {
         } finally {
             setIsLoading(false)
         }
-    }
+    }, [router])
+
+    useEffect(() => {
+        if (params?.id) {
+            setScanId(params.id)
+            fetchScan(params.id)
+        }
+    }, [params, fetchScan])
 
     return (
         <div className="min-h-screen">

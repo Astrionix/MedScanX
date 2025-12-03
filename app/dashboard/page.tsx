@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
@@ -16,11 +16,7 @@ export default function DashboardPage() {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState('')
 
-    useEffect(() => {
-        fetchScans()
-    }, [])
-
-    const fetchScans = async () => {
+    const fetchScans = useCallback(async () => {
         try {
             const response = await fetch('/api/scans')
 
@@ -41,7 +37,11 @@ export default function DashboardPage() {
         } finally {
             setIsLoading(false)
         }
-    }
+    }, [router])
+
+    useEffect(() => {
+        fetchScans()
+    }, [fetchScans])
 
     const handleLogout = async () => {
         try {
