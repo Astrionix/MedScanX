@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Card } from '@/components/ui/Card'
+import { Logo } from '@/components/ui/Logo'
 
 export default function AdminSetupPage() {
     const router = useRouter()
@@ -50,6 +51,9 @@ export default function AdminSetupPage() {
         <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">
             <div className="w-full max-w-md space-y-8">
                 <div className="text-center">
+                    <div className="flex items-center justify-center mb-4">
+                        <Logo size="md" />
+                    </div>
                     <h1 className="text-3xl font-bold text-gray-900">
                         Admin User Setup
                     </h1>

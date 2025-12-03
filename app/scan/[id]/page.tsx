@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
+import { Logo } from '@/components/ui/Logo'
 import { ScanPreview } from '@/components/medical/ScanPreview'
 import { AnalysisCard } from '@/components/medical/AnalysisCard'
 import { PrecautionList } from '@/components/medical/PrecautionList'
@@ -55,11 +56,8 @@ export default function ScanDetailPage({ params }: { params: { id: string } }) {
             <header className="glass-card sticky top-0 z-50 border-b">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <div className="flex items-center justify-between">
-                        <Link href="/dashboard" className="flex items-center gap-2">
-                            <span className="text-3xl">🏥</span>
-                            <h1 className="text-2xl font-bold medical-gradient bg-clip-text text-transparent">
-                                MedScanX
-                            </h1>
+                        <Link href="/dashboard" className="flex items-center">
+                            <Logo size="sm" />
                         </Link>
                         <Link href="/dashboard">
                             <Button variant="outline">Back to Dashboard</Button>

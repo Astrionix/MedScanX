@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Card } from '@/components/ui/Card'
+import { Logo } from '@/components/ui/Logo'
 
 export default function RegisterPage() {
     const router = useRouter()
@@ -69,11 +70,8 @@ export default function RegisterPage() {
             <div className="w-full max-w-md space-y-8 animate-fade-in">
                 {/* Header */}
                 <div className="text-center">
-                    <div className="flex items-center justify-center gap-2 mb-4">
-                        <span className="text-5xl">🏥</span>
-                        <h1 className="text-4xl font-bold medical-gradient bg-clip-text text-transparent">
-                            MedScanX
-                        </h1>
+                    <div className="flex items-center justify-center mb-4">
+                        <Logo size="md" />
                     </div>
                     <p className="text-gray-600">
                         AI-Powered CT Scan Analysis Platform

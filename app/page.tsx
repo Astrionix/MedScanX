@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
+import { Logo } from '@/components/ui/Logo'
 
 export default function HomePage() {
     return (
@@ -7,11 +8,8 @@ export default function HomePage() {
             <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
                 {/* Logo and Title */}
                 <div className="space-y-4">
-                    <div className="flex items-center justify-center gap-3">
-                        <span className="text-7xl">🏥</span>
-                        <h1 className="text-6xl font-bold medical-gradient bg-clip-text text-transparent">
-                            MedScanX
-                        </h1>
+                    <div className="flex items-center justify-center">
+                        <Logo size="lg" />
                     </div>
                     <p className="text-2xl text-gray-700 font-medium">
                         AI-Powered CT Scan Analysis Platform

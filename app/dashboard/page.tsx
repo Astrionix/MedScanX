@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { SeverityBadge } from '@/components/ui/SeverityBadge'
 import { SkeletonList } from '@/components/ui/Skeleton'
+import { Logo } from '@/components/ui/Logo'
 import { Disclaimer } from '@/components/medical/Disclaimer'
 import type { Scan } from '@/lib/types'
 
@@ -59,11 +60,8 @@ export default function DashboardPage() {
             <header className="glass-card sticky top-0 z-50 border-b">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <div className="flex items-center justify-between">
-                        <Link href="/dashboard" className="flex items-center gap-2">
-                            <span className="text-3xl">🏥</span>
-                            <h1 className="text-2xl font-bold medical-gradient bg-clip-text text-transparent">
-                                MedScanX
-                            </h1>
+                        <Link href="/dashboard" className="flex items-center">
+                            <Logo size="sm" />
                         </Link>
                         <div className="flex items-center gap-4">
                             <Link href="/upload">
