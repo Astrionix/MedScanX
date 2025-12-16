@@ -11,7 +11,7 @@ export default function HomePage() {
                     <div className="flex items-center justify-center">
                         <Logo size="lg" />
                     </div>
-                    <p className="text-2xl text-gray-700 font-medium">
+                    <p className="text-2xl text-slate-300 font-medium">
                         AI-Powered CT Scan Analysis Platform
                     </p>
                 </div>
@@ -20,28 +20,28 @@ export default function HomePage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
                     <div className="glass-card p-6 rounded-xl">
                         <div className="text-4xl mb-3">🔬</div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        <h3 className="text-lg font-semibold text-slate-100 mb-2">
                             Advanced AI Analysis
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-slate-400">
                             Powered by Gemini 2.5 Pro for accurate medical imaging analysis
                         </p>
                     </div>
                     <div className="glass-card p-6 rounded-xl">
                         <div className="text-4xl mb-3">⚡</div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        <h3 className="text-lg font-semibold text-slate-100 mb-2">
                             Instant Results
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-slate-400">
                             Get comprehensive analysis reports in seconds
                         </p>
                     </div>
                     <div className="glass-card p-6 rounded-xl">
                         <div className="text-4xl mb-3">🔒</div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        <h3 className="text-lg font-semibold text-slate-100 mb-2">
                             Secure & Private
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-slate-400">
                             Your medical data is encrypted and protected
                         </p>
                     </div>

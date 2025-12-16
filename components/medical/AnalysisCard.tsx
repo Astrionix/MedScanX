@@ -12,14 +12,14 @@ export function AnalysisCard({ analysis, severity }: AnalysisCardProps) {
         <Card>
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-slate-100 flex items-center gap-2">
                         <span className="text-2xl">🔬</span>
                         AI Analysis
                     </h3>
                     <SeverityBadge severity={severity} />
                 </div>
-                <div className="prose prose-blue max-w-none">
-                    <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{analysis}</p>
+                <div className="prose prose-blue max-w-none text-slate-300">
+                    <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">{analysis}</p>
                 </div>
             </div>
         </Card>

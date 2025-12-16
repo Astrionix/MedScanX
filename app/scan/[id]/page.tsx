@@ -11,11 +11,19 @@ import { PrecautionList } from '@/components/medical/PrecautionList'
 import { RecommendationsCard } from '@/components/medical/RecommendationsCard'
 import { Disclaimer } from '@/components/medical/Disclaimer'
 import { SkeletonCard } from '@/components/ui/Skeleton'
+import { ChatInterface } from '@/components/medical/ChatInterface'
+import { PDFReportBtn } from '@/components/medical/PDFReportBtn'
+import { ShareButton } from '@/components/medical/ShareButton'
 import type { Scan } from '@/lib/types'
+
+import { LanguageSelector } from '@/components/medical/LanguageSelector'
 
 export default function ScanDetailPage({ params }: { params: { id: string } }) {
     const router = useRouter()
     const [scan, setScan] = useState<Scan | null>(null)
+    const [translatedScan, setTranslatedScan] = useState<Partial<Scan> | null>(null)
+    const [currentLanguage, setCurrentLanguage] = useState('English')
+    const [isTranslating, setIsTranslating] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState('')
     const [scanId, setScanId] = useState<string>('')
@@ -43,6 +51,47 @@ export default function ScanDetailPage({ params }: { params: { id: string } }) {
         }
     }, [router])
 
+    const handleLanguageChange = async (language: string) => {
+        if (!scan || language === currentLanguage) return
+
+        if (language === 'English') {
+            setTranslatedScan(null)
+            setCurrentLanguage('English')
+            return
+        }
+
+        setIsTranslating(true)
+        setCurrentLanguage(language)
+
+        try {
+            const response = await fetch('/api/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    text: {
+                        analysis: scan.analysis,
+                        abnormalities: scan.abnormalities,
+                        precautions: scan.precautions,
+                        recommendations: scan.recommendations,
+                    },
+                    targetLanguage: language,
+                    context: 'CT Scan Radiology Report'
+                })
+            })
+
+            const data = await response.json()
+            if (!response.ok) throw new Error(data.error)
+
+            setTranslatedScan(data)
+        } catch (err) {
+            console.error('Translation error:', err)
+            // Revert on error
+            setCurrentLanguage(currentLanguage)
+        } finally {
+            setIsTranslating(false)
+        }
+    }
+
     useEffect(() => {
         if (params?.id) {
             setScanId(params.id)
@@ -59,9 +108,17 @@ export default function ScanDetailPage({ params }: { params: { id: string } }) {
                         <Link href="/dashboard" className="flex items-center">
                             <Logo size="sm" />
                         </Link>
-                        <Link href="/dashboard">
-                            <Button variant="outline">Back to Dashboard</Button>
-                        </Link>
+
+                        <div className="flex items-center gap-4">
+                            <LanguageSelector
+                                currentLanguage={currentLanguage}
+                                onLanguageChange={handleLanguageChange}
+                                isLoading={isTranslating}
+                            />
+                            <Link href="/dashboard">
+                                <Button variant="outline">Back to Dashboard</Button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -71,10 +128,10 @@ export default function ScanDetailPage({ params }: { params: { id: string } }) {
                 <div className="space-y-8">
                     {/* Header */}
                     <div className="animate-fade-in">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                        <h2 className="text-3xl font-bold text-slate-100 mb-2">
                             Scan Analysis Report
                         </h2>
-                        <p className="text-gray-600">
+                        <p className="text-slate-400">
                             Detailed AI-powered analysis of your CT scan
                         </p>
                     </div>
@@ -84,7 +141,7 @@ export default function ScanDetailPage({ params }: { params: { id: string } }) {
 
                     {/* Error State */}
                     {error && (
-                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                        <div className="bg-red-500/10 border border-red-500/50 text-red-200 px-4 py-3 rounded-lg">
                             {error}
                         </div>
                     )}
@@ -106,21 +163,22 @@ export default function ScanDetailPage({ params }: { params: { id: string } }) {
                                     scanUrl={scan.scan_url}
                                     scanName={scan.scan_name}
                                     createdAt={scan.created_at}
+                                    abnormalities={scan.abnormalities}
                                 />
                                 <AnalysisCard
-                                    analysis={scan.analysis}
+                                    analysis={translatedScan?.analysis || scan.analysis}
                                     severity={scan.severity}
                                 />
                             </div>
 
                             {/* Recommendations and Abnormalities */}
                             <RecommendationsCard
-                                recommendations={scan.recommendations}
-                                abnormalities={scan.abnormalities}
+                                recommendations={translatedScan?.recommendations || scan.recommendations}
+                                abnormalities={translatedScan?.abnormalities || scan.abnormalities}
                             />
 
                             {/* Precautions */}
-                            <PrecautionList precautions={scan.precautions} />
+                            <PrecautionList precautions={translatedScan?.precautions || scan.precautions} />
 
                             {/* Actions */}
                             <div className="flex flex-wrap gap-4 justify-center">
@@ -130,14 +188,16 @@ export default function ScanDetailPage({ params }: { params: { id: string } }) {
                                         Upload Another Scan
                                     </Button>
                                 </Link>
-                                <Button
-                                    variant="outline"
-                                    size="lg"
-                                    onClick={() => window.print()}
-                                >
-                                    <span className="mr-2">🖨️</span>
-                                    Print Report
-                                </Button>
+                                <PDFReportBtn scan={scan} />
+                                <ShareButton scan={scan} />
+                            </div>
+
+                            {/* AI Chat Assistant */}
+                            <div className="pt-8 border-t border-slate-700/50">
+                                <h3 className="text-2xl font-bold text-slate-100 mb-6 text-center">
+                                    Have Questions? Ask MediChat AI
+                                </h3>
+                                <ChatInterface scanContext={scan} />
                             </div>
                         </div>
                     )}

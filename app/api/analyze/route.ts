@@ -40,7 +40,12 @@ export async function POST(request: NextRequest) {
 {
   "analysis": "Detailed analysis of the CT scan findings (2-3 paragraphs)",
   "severity": "low|medium|high|critical",
-  "abnormalities": ["List of specific abnormalities detected"],
+  "abnormalities": [
+    {
+      "text": "Description of specific abnormality detected",
+      "coordinates": { "x": 50, "y": 50 }
+    }
+  ],
   "precautions": ["List of precautions the patient should take"],
   "recommendations": ["List of medical recommendations and next steps"]
 }
@@ -49,6 +54,7 @@ Guidelines:
 - Provide a thorough, professional analysis
 - Severity levels: low (normal/minor), medium (requires monitoring), high (needs attention), critical (urgent care needed)
 - List 3-5 specific abnormalities if any are detected
+- **CRITICAL**: For each abnormality, estimate the Center Point coordinates (x, y) as percentages (0-100) on the image. x=0 is left, y=0 is top. If global, use x=50, y=50.
 - Provide 3-5 practical precautions
 - Give 3-5 actionable medical recommendations
 - Be precise and use medical terminology where appropriate
@@ -82,7 +88,7 @@ Return ONLY the JSON object, no additional text.`
             analysisResult = {
                 analysis: text,
                 severity: 'medium',
-                abnormalities: ['Unable to parse detailed findings'],
+                abnormalities: [{ text: 'Unable to parse detailed findings', coordinates: { x: 50, y: 50 } }],
                 precautions: ['Consult with a radiologist for proper interpretation'],
                 recommendations: ['Get a professional medical evaluation'],
             }

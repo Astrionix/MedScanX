@@ -32,7 +32,7 @@ export function SeverityBadge({ severity }: SeverityBadgeProps) {
 
     return (
         <span
-            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold border ${config.className}`}
+            className={`severity-badge inline-flex items-center gap-1.5 ${config.className}`}
         >
             <span>{config.icon}</span>
             {config.label}

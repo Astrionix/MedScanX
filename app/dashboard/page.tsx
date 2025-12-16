@@ -70,6 +70,12 @@ export default function DashboardPage() {
                                     Upload Scan
                                 </Button>
                             </Link>
+                            <Link href="/compare">
+                                <Button variant="secondary" className="border border-cyan-500/20 text-cyan-400 hover:bg-cyan-950/30">
+                                    <span className="mr-2">⚔️</span>
+                                    Compare Scans
+                                </Button>
+                            </Link>
                             <Button variant="outline" onClick={handleLogout}>
                                 Logout
                             </Button>
@@ -86,7 +92,7 @@ export default function DashboardPage() {
                         <h2 className="text-3xl font-bold text-gray-900 mb-2">
                             Your Scan History
                         </h2>
-                        <p className="text-gray-600">
+                        <p className="text-slate-400">
                             View and manage your CT scan analyses
                         </p>
                     </div>
@@ -108,10 +114,10 @@ export default function DashboardPage() {
                     {!isLoading && scans.length === 0 && (
                         <Card className="text-center py-12">
                             <div className="text-6xl mb-4">📋</div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                            <h3 className="text-xl font-semibold text-slate-100 mb-2">
                                 No scans yet
                             </h3>
-                            <p className="text-gray-600 mb-6">
+                            <p className="text-slate-400 mb-6">
                                 Upload your first CT scan to get started with AI analysis
                             </p>
                             <Link href="/upload">
@@ -142,11 +148,11 @@ export default function DashboardPage() {
 
                                             {/* Scan Info */}
                                             <div className="space-y-2">
-                                                <h3 className="font-semibold text-gray-900 truncate">
+                                                <h3 className="font-semibold text-slate-100 truncate">
                                                     {scan.scan_name}
                                                 </h3>
                                                 <SeverityBadge severity={scan.severity} />
-                                                <p className="text-sm text-gray-500">
+                                                <p className="text-sm text-slate-400">
                                                     {new Date(scan.created_at).toLocaleDateString('en-US', {
                                                         year: 'numeric',
                                                         month: 'short',
@@ -156,7 +162,7 @@ export default function DashboardPage() {
                                             </div>
 
                                             {/* Quick Preview */}
-                                            <p className="text-sm text-gray-600 line-clamp-2">
+                                            <p className="text-sm text-slate-400 line-clamp-2">
                                                 {scan.analysis}
                                             </p>
                                         </div>
