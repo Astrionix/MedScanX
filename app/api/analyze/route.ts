@@ -26,13 +26,18 @@ export async function POST(request: NextRequest) {
         }
 
         // Fetch the image
+        console.log('Fetching image from:', scanUrl);
         const imageResponse = await fetch(scanUrl)
+        if (!imageResponse.ok) {
+            throw new Error(`Failed to fetch image: ${imageResponse.statusText}`);
+        }
         const imageBuffer = await imageResponse.arrayBuffer()
         const base64Image = Buffer.from(imageBuffer).toString('base64')
+        console.log('Image fetched and converted to base64');
 
         // Initialize Gemini model
-        // Using gemini-2.5-pro for best performance in medical image analysis
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' })
+        // Using gemini-2.5-flash as verified by testing
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
 
         // Create detailed prompt for CT scan analysis
         const prompt = `You are an expert radiologist AI assistant analyzing a CT scan image. Please provide a comprehensive analysis following this exact JSON structure:
@@ -123,7 +128,11 @@ Return ONLY the JSON object, no additional text.`
             data: scanData,
         })
     } catch (error) {
-        console.error('Analysis error:', error)
+        console.error('Analysis error details:', error)
+        if (error instanceof Error) {
+            console.error('Error message:', error.message);
+            console.error('Error stack:', error.stack);
+        }
         return NextResponse.json(
             {
                 error: 'Failed to analyze scan',

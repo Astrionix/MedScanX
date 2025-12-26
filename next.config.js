@@ -12,6 +12,18 @@ const nextConfig = {
         // !! WARN !!
         ignoreBuildErrors: true,
     },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'qfomqftxnbjrsygpjbfi.supabase.co',
+            },
+            {
+                protocol: 'https',
+                hostname: 'upload.wikimedia.org',
+            },
+        ],
+    },
 }
 
 module.exports = nextConfig
