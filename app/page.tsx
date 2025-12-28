@@ -4,7 +4,7 @@ import { Logo } from '@/components/ui/Logo'
 
 export default function HomePage() {
     return (
-        <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="min-h-screen w-full flex flex-col items-center md:justify-center p-4 pt-[calc(env(safe-area-inset-top)+2rem)] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
             <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
                 {/* Logo and Title */}
                 <div className="space-y-4">
