@@ -5,6 +5,14 @@ export const metadata: Metadata = {
     title: 'MedScanX - AI-Powered CT Scan Analysis',
     description: 'Advanced AI-powered medical imaging analysis platform for CT scans',
     keywords: ['medical imaging', 'CT scan', 'AI analysis', 'radiology', 'healthcare'],
+    viewport: {
+        width: 'device-width',
+        initialScale: 1,
+        maximumScale: 1,
+        userScalable: false,
+        viewportFit: 'cover',
+    },
+    themeColor: '#0f172a', // Matching slate-950
 }
 
 export default function RootLayout({
