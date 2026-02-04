@@ -3,8 +3,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { createClient } from '@/lib/supabase/server'
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
-
 export async function POST(request: NextRequest) {
     try {
         const supabase = await createClient()
@@ -16,7 +14,12 @@ export async function POST(request: NextRequest) {
 
         const { message, previousMessages, scanContext } = await request.json()
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' })
+        if (!process.env.GEMINI_API_KEY) {
+            return NextResponse.json({ error: 'Gemini API key is not configured' }, { status: 500 })
+        }
+
+        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
 
         const chat = model.startChat({
             history: [
@@ -34,7 +37,7 @@ Please answer any follow-up questions about these findings. Be professional, cle
                     parts: [{ text: "Understood. I am ready to answer questions about this specific CT scan analysis while maintaining appropriate medical boundaries." }],
                 },
                 ...previousMessages.map((msg: any) => ({
-                    role: msg.role === 'user' ? 'user' : 'model',
+                    role: msg.role === 'ai' || msg.role === 'model' ? 'model' : 'user',
                     parts: [{ text: msg.content }],
                 })),
             ],

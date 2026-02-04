@@ -3,8 +3,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { createClient } from '@/lib/supabase/server'
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
-
 export async function POST(request: NextRequest) {
     try {
         const supabase = await createClient()
@@ -32,10 +30,15 @@ export async function POST(request: NextRequest) {
         }
 
         // Sort by date to ensure chronological order (Scan A = Older, Scan B = Newer)
-        const sortedScans = scans.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+        const sortedScans = scans.sort((a: any, b: any) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
         const [oldScan, newScan] = sortedScans
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' })
+        if (!process.env.GEMINI_API_KEY) {
+            return NextResponse.json({ error: 'Gemini API key is not configured' }, { status: 500 })
+        }
+
+        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
 
         const prompt = `Act as an expert radiologist performing a longitudinal analysis. Compare these two medical scans from the same patient.
 
